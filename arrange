@@ -1,0 +1,21 @@
+#!/bin/bash
+
+ls -al
+
+folder_dir="./files"
+
+if [ ! -d "$folder_dir" ]; then
+    echo "Error: 'files' folder not found."
+    exit 1
+fi
+
+for file in "$folder_dir"/*; do
+    if [ -f "$file" ]; then
+        firstAlpha=$(basename "$file" | cut -c1)
+        dest="./$firstAlpha"
+        if [ ! -d "$dest" ]; then
+            mkdir "$dest"
+        fi
+        mv "$file" "$dest/"
+    fi
+done
